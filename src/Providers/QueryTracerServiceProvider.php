@@ -15,7 +15,8 @@ class QueryTracerServiceProvider extends ServiceProvider
      */
     public function boot(DispatcherContract $events)
     {
-        $events->listen('eloquent.booted: *', function ($model) {
+        $events->listen('eloquent.booted: *', function ($event, $data) {
+            [$model] = $data;
             $model->addGlobalScope(new QueryTracer);
         });
     }
